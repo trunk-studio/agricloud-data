@@ -1,7 +1,9 @@
+var config = require('../config');
 var http = require('http');
+var fs = require('fs');
 
-module.exports = function(appResponse, url, targetMonth){
-  http.get(url, function(res) {
+module.exports = function(unitId, targetMonth) {
+  http.get(config.url + '?UnitId=' + unitId, function(res) {
     var str = '';
 
     res.on('data', function(chunk) {
@@ -20,7 +22,14 @@ module.exports = function(appResponse, url, targetMonth){
       }
       /* 過濾 End */
 
-      appResponse.end(JSON.stringify(result));
+      fs.writeFile("./json/month/" + targetMonth + ".json", JSON.stringify(result), function(err) {
+        if(err) {
+          console.log(err);
+        } else {
+          console.log("Done: month-" + targetMonth);
+        }
+      });
+
     });
   });
 };

@@ -1,13 +1,9 @@
-var http = require('http');
-var requestMonth = require('./request/month');
-var requestList = require('./request/list');
+var requestAPI = require('./request');
 
-var url = 'http://data.coa.gov.tw/Service/OpenData/DataFileService.aspx?UnitId=061';
+for(var i = 1; i <= 12; i++) {
+  // month(Unit-Id, Month) -> 列出特定月份的所有蔬果
+  requestAPI.month('061', i.toString());
+}
 
-var server = http.createServer(function (request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain;charset=utf-8"});
-  // requestMonth(response, url, '2');
-  requestList(response, url);
-});
-
-server.listen(5000);
+// list(Unit-Id) -> 只列出全部蔬果的種類
+requestAPI.list('061');

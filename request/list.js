@@ -1,7 +1,9 @@
+var config = require('../config');
 var http = require('http');
+var fs = require('fs');
 
-module.exports = function(appResponse, url){
-  http.get(url, function(res) {
+module.exports = function(unitId) {
+  http.get(config.url + '?UnitId=' + unitId, function(res) {
     var str = '';
 
     res.on('data', function(chunk) {
@@ -24,7 +26,14 @@ module.exports = function(appResponse, url){
       }
       /* End */
 
-      appResponse.end(JSON.stringify(result));
+      fs.writeFile("./json/list.json", JSON.stringify(result), function(err) {
+        if(err) {
+          console.log(err);
+        } else {
+          console.log("Done: list");
+        }
+      });
+
     });
   });
 };
