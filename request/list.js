@@ -10,7 +10,7 @@ module.exports = function(unitId) {
         str += chunk;
     });
 
-    res.on('end', function(){
+    res.on('end', function() {
       var origin_json = JSON.parse(str);
       var result = [];
 
@@ -18,11 +18,33 @@ module.exports = function(unitId) {
       for(var i = 0; i < origin_json.length; i++) {
         var isDuplicate = false;
         for(var j = 0; j < result.length; j++) {
-          if(origin_json[i].crop === result[j]) {
+          if(result[j].title === origin_json[i].crop) {
             isDuplicate = true;
+            var isValueDuplicate = false;
+
+            for(var k = 0; k < result[j].props.month.length; k++) {
+              if(result[j].props.month[k] === origin_json[i].month) isValueDuplicate = true;
+            }
+            if(!isValueDuplicate) result[j].props.month.push(origin_json[i].month);
+
+            isValueDuplicate = false;
+            for(var k = 0; k < result[j].props.variety.length; k++) {
+              if(result[j].props.variety[k] === origin_json[i].variety) isValueDuplicate = true;
+            }
+            if(!isValueDuplicate) result[j].props.variety.push(origin_json[i].variety);
+
+            isValueDuplicate = false;
+            for(var k = 0; k < result[j].props.county.length; k++) {
+              if(result[j].props.county[k] === origin_json[i].county) isValueDuplicate = true;
+            }
+            if(!isValueDuplicate) result[j].props.county.push(origin_json[i].county);
           }
         }
-        if(!isDuplicate) result.push(origin_json[i].crop);
+        if(!isDuplicate) {
+          var obj = eval('({"title":"' + origin_json[i].crop + '","props":{"type":"' +
+          origin_json[i].type + '","month":[],"variety":[],"county":[]}})');
+          result.push(obj);
+        }
       }
       /* End */
 
