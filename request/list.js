@@ -22,27 +22,27 @@ module.exports = function(unitId) {
             isDuplicate = true;
             var isValueDuplicate = false;
 
-            for(var k = 0; k < result[j].props.month.length; k++) {
-              if(result[j].props.month[k] === origin_json[i].month) isValueDuplicate = true;
+            for(var k = 0; k < result[j].month.length; k++) {
+              if(result[j].month[k] === origin_json[i].month) isValueDuplicate = true;
             }
-            if(!isValueDuplicate) result[j].props.month.push(origin_json[i].month);
+            if(!isValueDuplicate) result[j].month.push(origin_json[i].month);
 
             isValueDuplicate = false;
-            for(var k = 0; k < result[j].props.variety.length; k++) {
-              if(result[j].props.variety[k] === origin_json[i].variety) isValueDuplicate = true;
+            for(var k = 0; k < result[j].variety.length; k++) {
+              if(result[j].variety[k] === origin_json[i].variety) isValueDuplicate = true;
             }
-            if(!isValueDuplicate) result[j].props.variety.push(origin_json[i].variety);
+            if(!isValueDuplicate) result[j].variety.push(origin_json[i].variety);
 
             isValueDuplicate = false;
-            for(var k = 0; k < result[j].props.county.length; k++) {
-              if(result[j].props.county[k] === origin_json[i].county) isValueDuplicate = true;
+            for(var k = 0; k < result[j].county.length; k++) {
+              if(result[j].county[k] === origin_json[i].county) isValueDuplicate = true;
             }
-            if(!isValueDuplicate) result[j].props.county.push(origin_json[i].county);
+            if(!isValueDuplicate) result[j].county.push(origin_json[i].county);
           }
         }
         if(!isDuplicate) {
-          var obj = eval('({"title":"' + origin_json[i].crop + '","props":{"type":"' +
-          origin_json[i].type + '","month":[],"variety":[],"county":[]}})');
+          var obj = eval('({"title":"' + origin_json[i].crop + '","type":"' +
+          origin_json[i].type + '","month":[],"variety":[],"county":[]})');
           result.push(obj);
         }
       }
