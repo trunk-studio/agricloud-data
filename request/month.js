@@ -6,6 +6,8 @@ module.exports = function(unitId, targetMonth) {
   http.get(config.url + '?UnitId=' + unitId, function(res) {
     var str = '';
 
+    res.setEncoding('utf8');
+
     res.on('data', function(chunk) {
         str += chunk;
     });
