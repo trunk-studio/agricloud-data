@@ -7,7 +7,7 @@ module.exports = function(unitId) {
     var str = '';
 
     res.setEncoding('utf8');
-    
+
     res.on('data', function(chunk) {
         str += chunk;
     });
@@ -16,7 +16,7 @@ module.exports = function(unitId) {
       var origin_json = JSON.parse(str);
       var result = [];
 
-      /* 列出所有水果 Start */
+      /* 列出所有水果 */
       for(var i = 0; i < origin_json.length; i++) {
         var isDuplicate = false;
         for(var j = 0; j < result.length; j++) {
@@ -48,7 +48,6 @@ module.exports = function(unitId) {
           result.push(obj);
         }
       }
-      /* End */
 
       fs.writeFile("./json/list.json", JSON.stringify(result), function(err) {
         if(err) {
